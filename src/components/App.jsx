@@ -11,24 +11,10 @@ export class App extends Component {
     bad: 0,
   };
 
-  updateGood = () => {
+  updateFeedback = option => {
     this.setState(prevState => {
       return {
-        good: prevState.good + 1,
-      };
-    });
-  };
-  updateNeutral = () => {
-    this.setState(prevState => {
-      return {
-        neutral: prevState.neutral + 1,
-      };
-    });
-  };
-  updateBad = () => {
-    this.setState(prevState => {
-      return {
-        bad: prevState.bad + 1,
+        [option]: prevState[option] + 1,
       };
     });
   };
@@ -47,9 +33,10 @@ export class App extends Component {
     return (
       <div>
         <Section title="Please leave feedback">
-          <FeedbackOptions onLeaveFeedback={this.updateGood} options="Good" />
-          <FeedbackOptions onLeaveFeedback={this.updateNeutral} options="Neutral"/>
-          <FeedbackOptions onLeaveFeedback={this.updateBad} options="Bad" />
+          <FeedbackOptions
+            onLeaveFeedback={this.updateFeedback}
+            options={Object.keys(this.state)}
+          />
         </Section>
         <Section title="Statistics">
           {total === 0 && (
